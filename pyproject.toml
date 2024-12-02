@@ -15,7 +15,8 @@ dependencies = [
     "pytest",
     "mlflow",
     "qdrant-client",
-    "fastembed-gpu"
+    "fastembed-gpu",
+    "dspy"
 ]
 
 [project.scripts]

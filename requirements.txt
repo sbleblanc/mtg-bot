@@ -9,6 +9,7 @@ aiohttp==3.11.7
     #   aiohttp-retry
     #   datasets
     #   fsspec
+    #   litellm
 aiohttp-retry==2.9.1
     # via
     #   dvc-http
@@ -16,7 +17,9 @@ aiohttp-retry==2.9.1
 aiosignal==1.3.1
     # via aiohttp
 alembic==1.14.0
-    # via mlflow
+    # via
+    #   mlflow
+    #   optuna
 amqp==5.3.1
     # via kombu
 annotated-types==0.7.0
@@ -26,11 +29,17 @@ antlr4-python3-runtime==4.9.3
     #   hydra-core
     #   omegaconf
 anyio==4.6.2.post1
-    # via httpx
+    # via
+    #   asyncer
+    #   dspy
+    #   httpx
+    #   openai
 appdirs==1.4.4
     # via iterative-telemetry
 async-timeout==5.0.1 ; python_full_version < '3.11'
     # via aiohttp
+asyncer==0.0.8
+    # via dspy
 asyncssh==2.18.0
     # via scmrepo
 atpublic==5.0
@@ -40,7 +49,11 @@ attrs==24.2.0
     #   aiohttp
     #   dvc
     #   dvc-data
+    #   jsonschema
+    #   referencing
     #   sqltrie
+backoff==2.2.1
+    # via dspy
 billiard==4.2.1
     # via celery
 blinker==1.9.0
@@ -72,6 +85,7 @@ click==8.1.7
     #   click-plugins
     #   click-repl
     #   flask
+    #   litellm
     #   mlflow-skinny
     #   typer
 click-didyoumean==0.3.1
@@ -85,12 +99,15 @@ cloudpickle==3.1.0
 colorama==0.4.6
     # via
     #   click
+    #   colorlog
     #   dvc
     #   loguru
     #   pytest
     #   tqdm
 coloredlogs==15.0.1
     # via onnxruntime-gpu
+colorlog==6.9.0
+    # via optuna
 configobj==5.0.9
     # via dvc
 contourpy==1.3.1
@@ -104,6 +121,7 @@ databricks-sdk==0.38.0
 datasets==3.1.0
     # via
     #   mtg-bot (pyproject.toml)
+    #   dspy
     #   evaluate
 deprecated==1.2.15
     # via
@@ -117,15 +135,20 @@ dill==0.3.8
     #   evaluate
     #   multiprocess
 diskcache==5.6.3
-    # via dvc-data
+    # via
+    #   dspy
+    #   dvc-data
 distro==1.9.0
     # via
     #   dvc
     #   iterative-telemetry
+    #   openai
 docker==7.1.0
     # via mlflow
 dpath==2.2.0
     # via dvc
+dspy==2.5.41
+    # via mtg-bot (pyproject.toml)
 dulwich==0.22.6
     # via
     #   dvc
@@ -237,7 +260,10 @@ hpack==4.0.0
 httpcore==1.0.7
     # via httpx
 httpx==0.28.0
-    # via qdrant-client
+    # via
+    #   dspy
+    #   openai
+    #   qdrant-client
 huggingface-hub==0.26.2
     # via
     #   accelerate
@@ -261,6 +287,7 @@ idna==3.10
     #   yarl
 importlib-metadata==8.5.0
     # via
+    #   litellm
     #   mlflow-skinny
     #   opentelemetry-api
 iniconfig==2.0.0
@@ -272,10 +299,21 @@ itsdangerous==2.2.0
 jinja2==3.1.4
     # via
     #   flask
+    #   litellm
     #   mlflow
     #   torch
+jiter==0.8.0
+    # via openai
 joblib==1.4.2
-    # via scikit-learn
+    # via
+    #   dspy
+    #   scikit-learn
+json-repair==0.30.2
+    # via dspy
+jsonschema==4.23.0
+    # via litellm
+jsonschema-specifications==2024.10.1
+    # via jsonschema
 kiwisolver==1.4.7
     # via matplotlib
 kombu==5.4.2
@@ -283,8 +321,12 @@ kombu==5.4.2
     #   celery
     #   dvc
     #   dvc-task
+litellm==1.51.0
+    # via dspy
 loguru==0.7.2
     # via fastembed-gpu
+magicattr==0.1.6
+    # via dspy
 mako==1.3.6
     # via alembic
 markdown==3.7
@@ -332,6 +374,7 @@ numpy==2.1.3
     #   mlflow
     #   onnx
     #   onnxruntime-gpu
+    #   optuna
     #   pandas
     #   qdrant-client
     #   scikit-learn
@@ -378,6 +421,10 @@ onnx==1.17.0
     # via fastembed-gpu
 onnxruntime-gpu==1.19.2
     # via fastembed-gpu
+openai==1.55.3
+    # via
+    #   dspy
+    #   litellm
 opentelemetry-api==1.28.2
     # via
     #   mlflow-skinny
@@ -387,6 +434,8 @@ opentelemetry-sdk==1.28.2
     # via mlflow-skinny
 opentelemetry-semantic-conventions==0.49b2
     # via opentelemetry-sdk
+optuna==4.1.0
+    # via dspy
 orjson==3.10.12 ; implementation_name == 'cpython'
     # via
     #   dvc-data
@@ -403,12 +452,14 @@ packaging==24.2
     #   matplotlib
     #   mlflow-skinny
     #   onnxruntime-gpu
+    #   optuna
     #   pytest
     #   transformers
 pandas==2.2.3
     # via
     #   mtg-bot (pyproject.toml)
     #   datasets
+    #   dspy
     #   evaluate
     #   mlflow
 pathspec==0.12.1
@@ -459,7 +510,10 @@ pycparser==2.22
     # via cffi
 pydantic==2.10.2
     # via
+    #   dspy
     #   gto
+    #   litellm
+    #   openai
     #   qdrant-client
 pydantic-core==2.27.1
     # via pydantic
@@ -491,6 +545,8 @@ python-dateutil==2.9.0.post0
     #   graphene
     #   matplotlib
     #   pandas
+python-dotenv==1.0.1
+    # via litellm
 pytz==2024.2
     # via pandas
 pywin32==308 ; sys_platform == 'win32' or platform_system == 'Windows'
@@ -505,29 +561,44 @@ pyyaml==6.0.2
     #   huggingface-hub
     #   mlflow-skinny
     #   omegaconf
+    #   optuna
     #   transformers
 qdrant-client==1.12.1
     # via mtg-bot (pyproject.toml)
+referencing==0.35.1
+    # via
+    #   jsonschema
+    #   jsonschema-specifications
 regex==2024.11.6
-    # via transformers
+    # via
+    #   dspy
+    #   tiktoken
+    #   transformers
 requests==2.32.3
     # via
     #   databricks-sdk
     #   datasets
     #   docker
+    #   dspy
     #   dvc
     #   dvc-studio-client
     #   evaluate
     #   fastembed-gpu
     #   huggingface-hub
     #   iterative-telemetry
+    #   litellm
     #   mlflow-skinny
+    #   tiktoken
     #   transformers
 rich==13.9.4
     # via
     #   dvc
     #   gto
     #   typer
+rpds-py==0.21.0
+    # via
+    #   jsonschema
+    #   referencing
 rsa==4.9
     # via google-auth
 ruamel-yaml==0.18.6
@@ -577,11 +648,14 @@ six==1.16.0
 smmap==5.0.1
     # via gitdb
 sniffio==1.3.1
-    # via anyio
+    # via
+    #   anyio
+    #   openai
 sqlalchemy==2.0.36
     # via
     #   alembic
     #   mlflow
+    #   optuna
 sqlparse==0.5.2
     # via mlflow-skinny
 sqltrie==0.11.1
@@ -594,11 +668,16 @@ tabulate==0.9.0
     # via
     #   dvc
     #   gto
+tenacity==9.0.0
+    # via dspy
 threadpoolctl==3.5.0
     # via scikit-learn
+tiktoken==0.8.0
+    # via litellm
 tokenizers==0.20.3
     # via
     #   fastembed-gpu
+    #   litellm
     #   transformers
 tomli==2.1.0 ; python_full_version < '3.11'
     # via pytest
@@ -613,12 +692,15 @@ torch==2.5.1
 tqdm==4.67.1
     # via
     #   datasets
+    #   dspy
     #   dvc
     #   dvc-data
     #   evaluate
     #   fastembed-gpu
     #   fsspec
     #   huggingface-hub
+    #   openai
+    #   optuna
     #   scmrepo
     #   sentence-transformers
     #   transformers
@@ -638,6 +720,7 @@ typing-extensions==4.12.2
     #   graphene
     #   huggingface-hub
     #   multidict
+    #   openai
     #   opentelemetry-sdk
     #   pydantic
     #   pydantic-core
@@ -650,6 +733,8 @@ tzdata==2024.2
     #   celery
     #   kombu
     #   pandas
+ujson==5.10.0
+    # via dspy
 urllib3==2.2.3
     # via
     #   docker
