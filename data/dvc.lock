@@ -1,0 +1,48 @@
+schema: '2.0'
+stages:
+  rules_to_documents:
+    cmd: preprocess mtg-rules raw/MagicCompRules_20241108.txt intermediate/mtg_rules_docs.json
+    deps:
+    - path: ../mtg_bot/preprocessing/mtg_rules.py
+      hash: md5
+      md5: 76d4fcf93683c7a3646b5146f0efacf2
+      size: 2631
+    - path: raw/MagicCompRules_20241108.txt
+      hash: md5
+      md5: 5c85928878c6e8576c6b77af3d3ba4e1
+      size: 935862
+    outs:
+    - path: intermediate/mtg_rules_docs.json
+      hash: md5
+      md5: 4c79f1e6873aef489d9f630088ff443a
+      size: 1431449
+  build_dense_emb_rules:
+    cmd: preprocess build-embeddings intermediate/mtg_rules_docs.json intermediate/mtg_rules_docs_dense.json
+    deps:
+    - path: intermediate/mtg_rules_docs.json
+      hash: md5
+      md5: 4c79f1e6873aef489d9f630088ff443a
+      size: 1431449
+    params:
+      params.yaml:
+        embeddings.bm25_model: Qdrant/bm25
+        embeddings.late_emb_model: jinaai/jina-colbert-v2
+        embeddings.text_emb_model: BAAI/bge-small-en-v1.5
+    outs:
+    - path: intermediate/mtg_rules_docs_dense.json
+      hash: md5
+      md5: d641be4ff97d79500dc4dd6d67c49c16
+      size: 1303753374
+  build_qdrant_db:
+    cmd: preprocess build-qdrant-db mtg_db intermediate/mtg_rules_docs_dense.json
+    deps:
+    - path: intermediate/mtg_rules_docs_dense.json
+      hash: md5
+      md5: d641be4ff97d79500dc4dd6d67c49c16
+      size: 1303753374
+    outs:
+    - path: mtg_db
+      hash: md5
+      md5: a151733568bfd984e938f9b9812dd2bd.dir
+      size: 454390486
+      nfiles: 3
