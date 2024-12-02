@@ -1,0 +1,4 @@
+embeddings:
+  text_emb_model: "BAAI/bge-small-en-v1.5"
+  late_emb_model: "jinaai/jina-colbert-v2"
+  bm25_model: "Qdrant/bm25"

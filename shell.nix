@@ -4,8 +4,9 @@ let
   pkgs = nixpkgs.pkgs;
   nixpkgs-python = import (fetchTarball "https://github.com/cachix/nixpkgs-python/archive/refs/heads/main.zip");
   python = nixpkgs-python.packages.x86_64-linux."3.10.14".withPackages(pp: with pp; [ tkinter ]);
-  cuda_pkg = pkgs.cudaPackages.cudatoolkit;
-  lib_pkgs = [ nixpkgs-unstable.linuxPackages_latest.nvidia_x11 pkgs.stdenv.cc.cc pkgs.zlib python ];
+  cuda_pkg = nixpkgs-unstable.cudaPackages.cudatoolkit;
+  cudnn_pkg =  nixpkgs-unstable.cudaPackages.cudnn;
+  lib_pkgs = [ nixpkgs-unstable.linuxPackages_latest.nvidia_x11 cuda_pkg cudnn_pkg pkgs.stdenv.cc.cc pkgs.zlib python ];
 in
 pkgs.mkShell {
 
@@ -21,7 +22,8 @@ pkgs.mkShell {
   packages = [
     python
     nixpkgs-unstable.pkgs.uv
-    pkgs.cudaPackages.cudatoolkit
+    cuda_pkg
+    cudnn_pkg
     pkgs.zlib
     pkgs.pkg-config
     pkgs.cairo

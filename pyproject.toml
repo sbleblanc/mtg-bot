@@ -13,8 +13,13 @@ dependencies = [
     "click",
     "dvc",
     "pytest",
-    "mlflow"
+    "mlflow",
+    "qdrant-client",
+    "fastembed-gpu"
 ]
+
+[project.scripts]
+preprocess = "mtg_bot.cli.preprocess:cli"
 
 [build-system]
 requires = ["setuptools>=61.0"]

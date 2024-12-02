@@ -25,6 +25,8 @@ antlr4-python3-runtime==4.9.3
     # via
     #   hydra-core
     #   omegaconf
+anyio==4.6.2.post1
+    # via httpx
 appdirs==1.4.4
     # via iterative-telemetry
 async-timeout==5.0.1 ; python_full_version < '3.11'
@@ -52,7 +54,10 @@ celery==5.4.0
     #   dvc
     #   dvc-task
 certifi==2024.8.30
-    # via requests
+    # via
+    #   httpcore
+    #   httpx
+    #   requests
 cffi==1.17.1
     # via
     #   cryptography
@@ -61,7 +66,7 @@ charset-normalizer==3.4.0
     # via requests
 click==8.1.7
     # via
-    #   kaggle-house-prices (pyproject.toml)
+    #   mtg-bot (pyproject.toml)
     #   celery
     #   click-didyoumean
     #   click-plugins
@@ -81,8 +86,11 @@ colorama==0.4.6
     # via
     #   click
     #   dvc
+    #   loguru
     #   pytest
     #   tqdm
+coloredlogs==15.0.1
+    # via onnxruntime-gpu
 configobj==5.0.9
     # via dvc
 contourpy==1.3.1
@@ -95,7 +103,7 @@ databricks-sdk==0.38.0
     # via mlflow-skinny
 datasets==3.1.0
     # via
-    #   kaggle-house-prices (pyproject.toml)
+    #   mtg-bot (pyproject.toml)
     #   evaluate
 deprecated==1.2.15
     # via
@@ -124,7 +132,7 @@ dulwich==0.22.6
     #   dvc-studio-client
     #   scmrepo
 dvc==3.57.0
-    # via kaggle-house-prices (pyproject.toml)
+    # via mtg-bot (pyproject.toml)
 dvc-data==3.16.7
     # via dvc
 dvc-http==2.32.0
@@ -142,9 +150,13 @@ dvc-task==0.40.2
 entrypoints==0.4
     # via gto
 evaluate==0.4.3
-    # via kaggle-house-prices (pyproject.toml)
+    # via mtg-bot (pyproject.toml)
 exceptiongroup==1.2.2 ; python_full_version < '3.11'
-    # via pytest
+    # via
+    #   anyio
+    #   pytest
+fastembed-gpu==0.4.2
+    # via mtg-bot (pyproject.toml)
 filelock==3.16.1
     # via
     #   datasets
@@ -155,6 +167,8 @@ filelock==3.16.1
     #   triton
 flask==3.1.0
     # via mlflow
+flatbuffers==24.3.25
+    # via onnxruntime-gpu
 flatten-dict==0.4.2
     # via dvc
 flufl-lock==8.1.0
@@ -204,22 +218,45 @@ graphql-relay==3.2.0
     # via graphene
 greenlet==3.1.1 ; (python_full_version < '3.13' and platform_machine == 'AMD64') or (python_full_version < '3.13' and platform_machine == 'WIN32') or (python_full_version < '3.13' and platform_machine == 'aarch64') or (python_full_version < '3.13' and platform_machine == 'amd64') or (python_full_version < '3.13' and platform_machine == 'ppc64le') or (python_full_version < '3.13' and platform_machine == 'win32') or (python_full_version < '3.13' and platform_machine == 'x86_64')
     # via sqlalchemy
+grpcio==1.68.0
+    # via
+    #   grpcio-tools
+    #   qdrant-client
+grpcio-tools==1.68.0
+    # via qdrant-client
 gto==1.7.1
     # via dvc
 gunicorn==23.0.0 ; platform_system != 'Windows'
     # via mlflow
+h11==0.14.0
+    # via httpcore
+h2==4.1.0
+    # via httpx
+hpack==4.0.0
+    # via h2
+httpcore==1.0.7
+    # via httpx
+httpx==0.28.0
+    # via qdrant-client
 huggingface-hub==0.26.2
     # via
     #   accelerate
     #   datasets
     #   evaluate
+    #   fastembed-gpu
     #   sentence-transformers
     #   tokenizers
     #   transformers
+humanfriendly==10.0
+    # via coloredlogs
 hydra-core==1.3.2
     # via dvc
+hyperframe==6.0.1
+    # via h2
 idna==3.10
     # via
+    #   anyio
+    #   httpx
     #   requests
     #   yarl
 importlib-metadata==8.5.0
@@ -246,6 +283,8 @@ kombu==5.4.2
     #   celery
     #   dvc
     #   dvc-task
+loguru==0.7.2
+    # via fastembed-gpu
 mako==1.3.6
     # via alembic
 markdown==3.7
@@ -262,9 +301,11 @@ matplotlib==3.9.2
 mdurl==0.1.2
     # via markdown-it-py
 mlflow==2.18.0
-    # via kaggle-house-prices (pyproject.toml)
+    # via mtg-bot (pyproject.toml)
 mlflow-skinny==2.18.0
     # via mlflow
+mmh3==4.1.0
+    # via fastembed-gpu
 mpmath==1.3.0
     # via sympy
 multidict==6.1.0
@@ -281,14 +322,18 @@ networkx==3.4.2
     #   torch
 numpy==2.1.3
     # via
-    #   kaggle-house-prices (pyproject.toml)
+    #   mtg-bot (pyproject.toml)
     #   accelerate
     #   contourpy
     #   datasets
     #   evaluate
+    #   fastembed-gpu
     #   matplotlib
     #   mlflow
+    #   onnx
+    #   onnxruntime-gpu
     #   pandas
+    #   qdrant-client
     #   scikit-learn
     #   scipy
     #   transformers
@@ -329,6 +374,10 @@ omegaconf==2.3.0
     # via
     #   dvc
     #   hydra-core
+onnx==1.17.0
+    # via fastembed-gpu
+onnxruntime-gpu==1.19.2
+    # via fastembed-gpu
 opentelemetry-api==1.28.2
     # via
     #   mlflow-skinny
@@ -353,11 +402,12 @@ packaging==24.2
     #   hydra-core
     #   matplotlib
     #   mlflow-skinny
+    #   onnxruntime-gpu
     #   pytest
     #   transformers
 pandas==2.2.3
     # via
-    #   kaggle-house-prices (pyproject.toml)
+    #   mtg-bot (pyproject.toml)
     #   datasets
     #   evaluate
     #   mlflow
@@ -365,14 +415,17 @@ pathspec==0.12.1
     # via
     #   dvc
     #   scmrepo
-pillow==11.0.0
+pillow==10.4.0
     # via
+    #   fastembed-gpu
     #   matplotlib
     #   sentence-transformers
 platformdirs==4.3.6
     # via dvc
 pluggy==1.5.0
     # via pytest
+portalocker==2.10.1
+    # via qdrant-client
 prompt-toolkit==3.0.48
     # via click-repl
 propcache==0.2.0
@@ -380,12 +433,18 @@ propcache==0.2.0
     #   aiohttp
     #   yarl
 protobuf==5.28.3
-    # via mlflow-skinny
+    # via
+    #   grpcio-tools
+    #   mlflow-skinny
+    #   onnx
+    #   onnxruntime-gpu
 psutil==6.1.0
     # via
     #   accelerate
     #   dvc
     #   flufl-lock
+py-rust-stemmers==0.1.3
+    # via fastembed-gpu
 pyarrow==18.1.0
     # via
     #   datasets
@@ -399,7 +458,9 @@ pyasn1-modules==0.4.1
 pycparser==2.22
     # via cffi
 pydantic==2.10.2
-    # via gto
+    # via
+    #   gto
+    #   qdrant-client
 pydantic-core==2.27.1
     # via pydantic
 pydot==3.0.2
@@ -420,8 +481,10 @@ pyparsing==3.2.0
     #   grandalf
     #   matplotlib
     #   pydot
+pyreadline3==3.5.4 ; sys_platform == 'win32'
+    # via humanfriendly
 pytest==8.3.3
-    # via kaggle-house-prices (pyproject.toml)
+    # via mtg-bot (pyproject.toml)
 python-dateutil==2.9.0.post0
     # via
     #   celery
@@ -430,10 +493,11 @@ python-dateutil==2.9.0.post0
     #   pandas
 pytz==2024.2
     # via pandas
-pywin32==308 ; sys_platform == 'win32'
+pywin32==308 ; sys_platform == 'win32' or platform_system == 'Windows'
     # via
     #   docker
     #   dvc-task
+    #   portalocker
 pyyaml==6.0.2
     # via
     #   accelerate
@@ -442,6 +506,8 @@ pyyaml==6.0.2
     #   mlflow-skinny
     #   omegaconf
     #   transformers
+qdrant-client==1.12.1
+    # via mtg-bot (pyproject.toml)
 regex==2024.11.6
     # via transformers
 requests==2.32.3
@@ -452,6 +518,7 @@ requests==2.32.3
     #   dvc
     #   dvc-studio-client
     #   evaluate
+    #   fastembed-gpu
     #   huggingface-hub
     #   iterative-telemetry
     #   mlflow-skinny
@@ -489,9 +556,10 @@ scmrepo==3.3.9
 semver==3.0.2
     # via gto
 sentence-transformers==3.3.1
-    # via kaggle-house-prices (pyproject.toml)
+    # via mtg-bot (pyproject.toml)
 setuptools==75.6.0
     # via
+    #   grpcio-tools
     #   torch
     #   zc-lockfile
 shellingham==1.5.4
@@ -508,6 +576,8 @@ six==1.16.0
     #   python-dateutil
 smmap==5.0.1
     # via gitdb
+sniffio==1.3.1
+    # via anyio
 sqlalchemy==2.0.36
     # via
     #   alembic
@@ -517,7 +587,9 @@ sqlparse==0.5.2
 sqltrie==0.11.1
     # via dvc-data
 sympy==1.13.1
-    # via torch
+    # via
+    #   onnxruntime-gpu
+    #   torch
 tabulate==0.9.0
     # via
     #   dvc
@@ -525,14 +597,16 @@ tabulate==0.9.0
 threadpoolctl==3.5.0
     # via scikit-learn
 tokenizers==0.20.3
-    # via transformers
+    # via
+    #   fastembed-gpu
+    #   transformers
 tomli==2.1.0 ; python_full_version < '3.11'
     # via pytest
 tomlkit==0.13.2
     # via dvc
 torch==2.5.1
     # via
-    #   kaggle-house-prices (pyproject.toml)
+    #   mtg-bot (pyproject.toml)
     #   accelerate
     #   sentence-transformers
     #   transformers
@@ -542,6 +616,7 @@ tqdm==4.67.1
     #   dvc
     #   dvc-data
     #   evaluate
+    #   fastembed-gpu
     #   fsspec
     #   huggingface-hub
     #   scmrepo
@@ -549,7 +624,7 @@ tqdm==4.67.1
     #   transformers
 transformers==4.46.3
     # via
-    #   kaggle-house-prices (pyproject.toml)
+    #   mtg-bot (pyproject.toml)
     #   sentence-transformers
 triton==3.1.0 ; python_full_version < '3.13' and platform_machine == 'x86_64' and platform_system == 'Linux'
     # via torch
@@ -558,6 +633,7 @@ typer==0.13.1
 typing-extensions==4.12.2
     # via
     #   alembic
+    #   anyio
     #   asyncssh
     #   graphene
     #   huggingface-hub
@@ -578,6 +654,7 @@ urllib3==2.2.3
     # via
     #   docker
     #   dulwich
+    #   qdrant-client
     #   requests
 vine==5.1.0
     # via
@@ -594,6 +671,8 @@ wcwidth==0.2.13
     # via prompt-toolkit
 werkzeug==3.1.3
     # via flask
+win32-setctime==1.1.0 ; sys_platform == 'win32'
+    # via loguru
 wrapt==1.17.0
     # via deprecated
 xxhash==3.5.0

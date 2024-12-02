@@ -1,0 +1,27 @@
+stages:
+  rules_to_documents:
+    cmd: preprocess mtg-rules raw/MagicCompRules_20241108.txt intermediate/mtg_rules_docs.json
+    deps:
+      - ../mtg_bot/preprocessing/mtg_rules.py
+      - raw/MagicCompRules_20241108.txt
+    outs:
+      - intermediate/mtg_rules_docs.json
+
+  build_dense_emb_rules:
+    cmd: preprocess build-embeddings intermediate/mtg_rules_docs.json intermediate/mtg_rules_docs_dense.json
+    params:
+      - embeddings.text_emb_model
+      - embeddings.late_emb_model
+      - embeddings.bm25_model
+    deps:
+      - intermediate/mtg_rules_docs.json
+    outs:
+      - intermediate/mtg_rules_docs_dense.json
+
+
+  build_qdrant_db:
+    cmd: preprocess build-qdrant-db mtg_db intermediate/mtg_rules_docs_dense.json
+    deps:
+      - intermediate/mtg_rules_docs_dense.json
+    outs:
+      - mtg_db
