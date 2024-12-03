@@ -16,7 +16,8 @@ dependencies = [
     "mlflow",
     "qdrant-client",
     "fastembed-gpu",
-    "dspy"
+    "dspy",
+    "streamlit"
 ]
 
 [project.scripts]
