@@ -119,6 +119,5 @@ def build_qdrant_db(
         )
 
 
-
 if __name__ == "__main__":
     cli()
